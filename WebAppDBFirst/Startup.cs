@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppDBFirst.Models;
+using WebAppDBFirst.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAppDBFirst
 {
@@ -33,6 +36,10 @@ namespace WebAppDBFirst
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Add MaBdContext services.
+            services.AddDbContext<MaBdContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("EFCoreDBFirst")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
