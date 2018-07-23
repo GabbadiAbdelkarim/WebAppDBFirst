@@ -9,9 +9,21 @@ using WebAppDBFirst.Models.DB;
 
 namespace WebAppDBFirst.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CitoyensController : Controller
     {
         private readonly MaBdContext _context;
+
+        // GET api/values
+        [HttpGet]
+        public List<Citoyen> Get()
+        {
+            var maBdContext = _context.Citoyen.Include(c => c.IdAdresseNavigation).Include(c => c.IdCarteNavigation)
+                .Include(c => c.IdCompteNavigation).Include(c => c.IdRelationNavigation);
+           
+                return maBdContext.ToList();
+        }
 
         public CitoyensController(MaBdContext context)
         {
